@@ -2,7 +2,7 @@
 #define __EE231_List_h__
 
 #include <cstddef>
-
+#include <initializer_list>
 template<typename T>
 class List
 {
@@ -10,10 +10,12 @@ class List
 
 	typedef struct llist {
 		T val;
-		struct llist *next;
+		llist *next;
+		llist *prev;
 	} llist;
 
-	llist *_data;
+	llist *_head;
+	llist *_tail;
 	size_t _size;
 
 	// private recursive copy so elements
@@ -32,76 +34,149 @@ class List
 	// default constructor
 	List()
 	{
-		_data = 0;
+		_head = 0;
+		_tail = 0;
 		_size = 0;
 	}
 
 	// copy constructor
-	List(const List& other)
+	List(const List<T>& other)
 	{
-		_data = 0;
-		_size = 0;
+		_head = other._head;
+		_tail = other._tail;
+		_size = other.size();
 		reccopy(other._data);
 	}
+	
+	List(std::initializer_list<T> 1)
+	{
+	_data = 0;
+	_size = 0;
+	for(auto value :1)
 
+	}
 	// destructor
-	~List()
-	{
-		clear();
-	}
-
-	// copy operator
-	List& operator=(const List& other)
-	{
-		clear();
-		reccopy(other._data);
-		return *this;
-	}
-
-	void clear()
+	~StringList()
 	{
 		while(!empty())
 			pop_front();
 	}
 
-	T& front()
+	// copy operator
+	List& operator=(const List<T> & other)
 	{
-		return _data->val;
+		if(!empty())
+		clear();
+
+		const llist *prt = b._head;
+		while(prt != NULL)
+		{
+		push_back(prt->val);
+		prt = prt -> next;
+		}
+		_size=b.size();
+		return *this;
 	}
 
-	const T& front() const
+	void clear()
+	{
+		while(empty() == false)
+		{
+			pop_back();
+		}
+		_size=0;
+	}
+
+	const List<T>& back()
+	{
+		return _tail->val;
+	}
+
+	const List<T>& Front()
 	{
 		return _data->val;
 	}
 
 	void push_front(const T& val)
 	{
-		llist *newItem = new llist;
-		newItem->val = val;
-		newItem->next = _data;
-		_data = newItem;
+		llist *newFItem = new llist;
+		newFItem->val = val;
+		newFItem->next = _head;
+		newFItem->prev=0;
+		if(_head !=0)
+			_head->=newFitem;
+		if(_tail == 0)
+			_tail =newFitem;
 		_size++;
 	}
 
 	void pop_front()
 	{
-		llist *front = _data;
-		if (front)
-		{
-			_data = front->next;
-			delete front;
-			_size--;
-		}
+		llist *front = _head;
+		_head = _head -> next;
+		if (_head)
+			_head->prev = _head ->prev->prev;
+		else
+			_tail=0;
+		delete front;
+		_size--;
 	}
 
 	bool empty() const
 	{
-		return _data == 0;
+		if(_head == 0)
+			return true;
+		return false;
 	}
 
 	size_t size() const
 	{
 		return _size;
+	}
+	
+	void push_back(cont T& val)
+	{
+		llist *newBItem = new llist;
+		newBItem -> = val;
+		newBItem->0;
+		newBItem->prev = _tail;
+		if(_tail != 0)
+			_head=newBItem;
+		if(_head == 0)
+			_head = newBItem;
+		_tail = newBItem;
+		_size++
+	}
+	void reverse()
+	{ llist *newhead = _tail;
+		llist *saveptr;
+		for( ; newhead != NULL; newhead = newhead->next)
+		{
+			saveptr = newhead->next;
+			newhead->next = newhead->prev;
+			newhead->prev = saveptr;
+		}
+		llist *temp = _head;
+		_head = _tail;
+		_tail = temp;i
+	}
+	void unique()
+	{
+		for(llist *ptr = _head; ptr !=null; ptr->)
+			{
+				while((ptr-> next !=null) && (ptr->str == ptr ->next->str))
+				{
+					llist *saveptr = ptr-> next;
+					ptr->next= saveptr->next;
+					
+					if(saveptr->next!=null)
+						saveptr->next->prev = ptr;
+					else
+						_tail = ptr;
+					delete saveptr;
+					_size--;
+					}
+			}
 	}
 };
 
