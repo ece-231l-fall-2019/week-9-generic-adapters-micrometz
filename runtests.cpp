@@ -31,9 +31,6 @@ void Assert(bool cond, std::string message)
 
 int main()
 {
-	// TODO:
-	// Write more tests to fully test your classes.
-
 	StringList a;
 	StringList b;
 
@@ -54,8 +51,18 @@ int main()
 	b.pop_front();
 	Assert(b.empty() == true, "b is empty");
 	Assert(a.empty() == false, "a is NOT empty");
+	
+	StringList AB;
+	StringList AC;
 
-	// TODO: check all methods on StringList...
+	AB.push_front("w");
+	AB.push_front("e");
+	AB.push_front("s");
+	AB.push_front("t");
+	AB.reverse();
+	AC = AB;
+	Assert(AC.front() == "t", "reverse");
+	
 
 	StringStack c;
 	c.push("A");
@@ -66,22 +73,20 @@ int main()
 	c.pop();
 	Assert(c.empty() == true, "B is empty");
 
-	// TODO: check all methods on StringStack...
 
 	IntList ia;
 	ia.push_front(5);
 	ia.push_front(6);
 	Assert(ia.front() == 6, "front is 6");
 
-	// TODO: check all methods on IntList...
 
 	IntStack ic;
 	ic.push(6);
 	ic.push(5);
 	Assert(ic.top() == 5, "top is 5");
 
-	// TODO: check all methods on IntStack...
-
+	IntList id = {3,2,4,5,7,1};
+	Assert(id.front() == 3, "front ");
 	return 0;
 }
 

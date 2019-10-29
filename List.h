@@ -56,7 +56,7 @@ class List
 
 	}
 	// destructor
-	~StringList()
+	~List()
 	{
 		while(!empty())
 			pop_front();
